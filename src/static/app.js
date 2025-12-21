@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Dark mode toggle element
   const darkModeToggle = document.getElementById("dark-mode-toggle");
   const themeIcon = darkModeToggle.querySelector(".theme-icon");
-  const themeText = darkModeToggle.querySelector("span:last-child");
+  const themeText = darkModeToggle.querySelector(".theme-text");
 
   // Dark mode functionality
   function initializeDarkMode() {
