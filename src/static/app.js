@@ -27,36 +27,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Dark mode toggle element
   const darkModeToggle = document.getElementById("dark-mode-toggle");
-  const themeIcon = darkModeToggle.querySelector(".theme-icon");
-  const themeText = darkModeToggle.querySelector(".theme-text");
+  
+  // Dark mode functionality (optional - won't break if toggle doesn't exist)
+  if (darkModeToggle) {
+    const themeIcon = darkModeToggle.querySelector(".theme-icon");
+    const themeText = darkModeToggle.querySelector(".theme-text");
 
-  // Dark mode functionality
-  function initializeDarkMode() {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      document.body.classList.add("dark-mode");
-      updateDarkModeButton(true);
+    function initializeDarkMode() {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+        updateDarkModeButton(true);
+      } else {
+        // Explicitly initialize light mode state
+        updateDarkModeButton(false);
+      }
     }
-  }
 
-  function toggleDarkMode() {
-    const isDarkMode = document.body.classList.toggle("dark-mode");
-    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-    updateDarkModeButton(isDarkMode);
-  }
-
-  function updateDarkModeButton(isDarkMode) {
-    if (isDarkMode) {
-      themeIcon.textContent = "☀️";
-      themeText.textContent = "Light Mode";
-    } else {
-      themeIcon.textContent = "🌙";
-      themeText.textContent = "Dark Mode";
+    function toggleDarkMode() {
+      const isDarkMode = document.body.classList.toggle("dark-mode");
+      localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+      updateDarkModeButton(isDarkMode);
     }
-  }
 
-  // Event listener for dark mode toggle
-  darkModeToggle.addEventListener("click", toggleDarkMode);
+    function updateDarkModeButton(isDarkMode) {
+      if (isDarkMode) {
+        themeIcon.textContent = "☀️";
+        themeText.textContent = "Light Mode";
+      } else {
+        themeIcon.textContent = "🌙";
+        themeText.textContent = "Dark Mode";
+      }
+    }
+
+    // Event listener for dark mode toggle
+    darkModeToggle.addEventListener("click", toggleDarkMode);
+    
+    // Initialize dark mode on page load
+    initializeDarkMode();
+  }
 
 
   // Activity categories with corresponding colors
@@ -896,7 +905,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Initialize app
-  initializeDarkMode();
   checkAuthentication();
   initializeFilters();
   fetchActivities();
