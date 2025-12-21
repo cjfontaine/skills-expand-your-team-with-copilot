@@ -25,6 +25,49 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeLoginModal = document.querySelector(".close-login-modal");
   const loginMessage = document.getElementById("login-message");
 
+  // Dark mode toggle element
+  const darkModeToggle = document.getElementById("dark-mode-toggle");
+  
+  // Dark mode functionality (optional - won't break if toggle doesn't exist)
+  if (darkModeToggle) {
+    const themeIcon = darkModeToggle.querySelector(".theme-icon");
+    const themeText = darkModeToggle.querySelector(".theme-text");
+
+    function initializeDarkMode() {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+        updateDarkModeButton(true);
+      } else {
+        // Explicitly initialize light mode state
+        updateDarkModeButton(false);
+      }
+    }
+
+    function toggleDarkMode() {
+      const isDarkMode = document.body.classList.toggle("dark-mode");
+      localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+      updateDarkModeButton(isDarkMode);
+    }
+
+    function updateDarkModeButton(isDarkMode) {
+      if (isDarkMode) {
+        themeIcon.textContent = "☀️";
+        themeText.textContent = "Light Mode";
+      } else {
+        themeIcon.textContent = "🌙";
+        themeText.textContent = "Dark Mode";
+      }
+    }
+
+    // Event listener for dark mode toggle
+    darkModeToggle.addEventListener("click", toggleDarkMode);
+    
+    // Initialize dark mode on page load
+    initializeDarkMode();
+  }
+
+
   // Activity categories with corresponding colors
   const activityTypes = {
     sports: { label: "Sports", color: "#e8f5e9", textColor: "#2e7d32" },
