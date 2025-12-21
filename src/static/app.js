@@ -613,7 +613,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Social sharing functions
   function handleTwitterShare(activityName, description, schedule) {
-    const text = `Check out ${activityName} at Mergington High School! ${description} Schedule: ${schedule}`;
+    // Keep tweet under 280 characters (leaving room for URL which Twitter auto-shortens to ~23 chars)
+    const maxLength = 250;
+    let text = `Check out ${activityName} at Mergington High School! ${description} Schedule: ${schedule}`;
+    if (text.length > maxLength) {
+      text = text.substring(0, maxLength - 3) + '...';
+    }
     const url = window.location.href;
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
     window.open(twitterUrl, '_blank', 'width=550,height=420');
